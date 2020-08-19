@@ -19,6 +19,6 @@ export class UserEntity {
     @Column({ length: 500 })
     password: string;
 
-    @Column()
-    avatar: string
+    // @Column()
+    // avatar: string
 }
