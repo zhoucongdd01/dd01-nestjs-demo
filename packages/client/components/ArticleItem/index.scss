@@ -1,0 +1,31 @@
+.article-item{
+    width: 100%;
+    box-sizing: content-box;
+    padding: 20px;
+    background: #ffffff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    &-img{
+        width: 220px;
+        height: 115px;
+        margin-right: 20px;
+    }
+    &-content{
+        width: 100%;
+        display: flex;
+        box-sizing: content-box;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: column; 
+        height: 115px;
+        &-footer{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+    }
+}

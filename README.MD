@@ -8,3 +8,6 @@ lerna bootstrap
 lerna run dev
 
 
+确保本机安装了mysql并启动
+
+

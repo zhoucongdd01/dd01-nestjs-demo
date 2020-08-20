@@ -1,0 +1,15 @@
+@import '../../styles/varibles.scss';
+
+.com-layout{
+  width: $view_width;
+  margin: 20px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  &-lf-content{
+    width:70%
+  }
+  &-rg-content{
+    width:25%
+  }
+}

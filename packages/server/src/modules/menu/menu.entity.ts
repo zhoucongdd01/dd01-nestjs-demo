@@ -6,12 +6,15 @@ export class BaseMenu{
 
     @Column()
     menu_name: string
+
+    @Column()
+    menu_path: string
 }
 
 
 @Entity()
 export class Menu extends BaseMenu{
-    
+
 }
 
 @Entity()

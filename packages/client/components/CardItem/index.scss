@@ -1,0 +1,24 @@
+.card-item{
+    background: #ffffff;
+    padding:10px;
+    &-title{
+        padding: 0 5px 10px 5px;
+        .text{
+            display: inline-block;
+            margin-left: 5px
+        }
+    }
+    &-content{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 5px;
+        transition: .3s;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    &-content:hover{
+        background: red;
+        color: #ffffff;
+    }
+}

@@ -12,7 +12,15 @@ import { AvatarEntity } from './modules//user/avatar.entity';
 
 // 菜单模块
 import { MenuModule } from './modules/menu/menu.module';
-import { Menu, SubMenu } from './modules/menu/menu.entity'
+import { Menu, SubMenu } from './modules/menu/menu.entity';
+
+// 文章模块
+import { ArticleModule } from './modules/article/article.module';
+import { Article } from './modules/article/article.entity';
+
+// 分类模块
+import { CategoryModule } from './modules/category/category.module';
+import { Category } from './modules/category/category.entity';
 
 @Module({
   imports: [
@@ -23,11 +31,15 @@ import { Menu, SubMenu } from './modules/menu/menu.entity'
         UserEntity,
         AvatarEntity,
         Menu,
-        SubMenu
+        SubMenu,
+        Article,
+        Category
       ]
     }),
     UserModule,
-    MenuModule
+    MenuModule,
+    ArticleModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

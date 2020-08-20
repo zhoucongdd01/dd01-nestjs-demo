@@ -8,7 +8,9 @@
     "start": "next start -p 3301"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
     "@zeit/next-sass": "^1.0.1",
+    "antd": "^4.5.4",
     "axios": "^0.19.2",
     "next": "9.5.2",
     "node-sass": "^4.14.1",
