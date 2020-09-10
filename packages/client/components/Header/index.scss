@@ -3,6 +3,7 @@
 .cl-header{
     width: 100%;
     background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
     .view-width{
         width: $view_width;
         margin:0 auto;
@@ -28,7 +29,7 @@
             cursor: pointer;
           }
           .menu_active{
-              color: red
+              color: $primary-color
           }
         }
         .rg-oper > button{

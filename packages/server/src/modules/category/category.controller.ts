@@ -7,11 +7,11 @@ export class CategoryController{
       private readonly categoryService: CategoryService
    ) {}
    
-//    @Post('create')
-//    async create(@Body() body): Promise<any> {
-//       const result = await this.categoryService.create(body);
-//       return result;
-//    }
+   @Post('create')
+   async create(@Body() body): Promise<any> {
+      const result = await this.categoryService.create(body);
+      return result;
+   }
 
    @Get('list')
    async list(@Query() query): Promise<any> {

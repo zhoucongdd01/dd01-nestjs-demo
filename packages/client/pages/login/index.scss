@@ -1,0 +1,23 @@
+@import '../../styles/varibles.scss';
+
+.login-container{
+    background: #ffffff;
+    min-height: 100vh;
+    .login-form-container{
+        width: $view_width;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: 50px;
+        .lf-form{
+            width: 50%;
+        }
+        .advertising-area{
+            width: 30%;
+            > img {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,32 +1,36 @@
 import { Injectable } from '@nestjs/common';
 // import svgCaptcha from 'svg-captcha';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './user.entity'
+import { customAlphabet } from 'nanoid';
+import { User } from './user.entity';
 import { Repository } from 'typeorm';
-import { AvatarEntity } from './avatar.entity';
 
 var svgCaptcha = require('svg-captcha')
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectRepository(UserEntity)
-        private readonly userRepository: Repository<UserEntity>,
-        @InjectRepository(AvatarEntity)
-        private readonly avatarRepository: Repository<AvatarEntity>
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
     ) {}
     
+    async findOneByUserName(username: string): Promise<User> {
+        const user = await this.userRepository.createQueryBuilder().
+        where({username: username}).getOne();
+        return user;
+    }
     
-    async createUser(user: Partial<UserEntity>): Promise<UserEntity> {
-        const newUser = await this.userRepository.create(user);
-        await this.userRepository.save(newUser);
+    async selectUser(user: Partial<User & {account: string}>): Promise<User> {
+        const newUser = await this.userRepository.createQueryBuilder().
+        where({username: user.account}).getOne()
         return newUser;
     }
 
-    async saveAvatar(avatar: Partial<AvatarEntity>): Promise<AvatarEntity> {
-        const newAvatar = await this.avatarRepository.create(avatar);
-        await this.avatarRepository.save(newAvatar);
-        return newAvatar
+    async createUser(user: Partial<User & {account: string}>): Promise<User> {
+        user.user_id = Number(customAlphabet('1234567890', 4)());
+        const newUser = await this.userRepository.create(user);
+        await this.userRepository.save(newUser);
+        return newUser;
     }
 
     async findAll(){

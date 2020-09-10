@@ -12,12 +12,12 @@ export class MenuService{
       private readonly subMenuRepository: Repository<SubMenu>,
   ) {}
 
-  // 查询菜单列表
+  // 查询菜单列表 
   async findList(): Promise<Menu[]> {
     const menuList = await this.menuRepository.find();
     const subMenuList = await this.subMenuRepository.find();
     const newMenuList = menuList.map( item => {
-        return {
+        return { 
             ... item,
             sub_menu: subMenuList.filter(subitem => subitem.parent_id === item.menu_id)
         }
@@ -37,7 +37,4 @@ export class MenuService{
         return newMenu;
     }
   }
-  
-  
-
 }

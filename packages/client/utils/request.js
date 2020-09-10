@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { resolveHref } from 'next/dist/next-server/lib/router/router';
+import { useCookie } from 'next-cookie';
 
 
 const instance = axios.create({
@@ -11,6 +11,11 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+    const cookies = useCookie();
+    const account_token = cookies.get('account_token');
+    if (account_token) {
+      config.headers.Authorization = `Bearer ${account_token}`
+    }
     // 在发送请求之前做些什么
     return config;
   }, function (error) {
@@ -27,15 +32,17 @@ instance.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-export const _Request = (url, method, data) => {
+export const _Request = (url, method, data, params, headers) => {
     return new Promise((resolve, reject) => {
         instance({
             url,
             method,
-            data
+            data,
+            params,
+            headers
         }).then(res => {
-            if (!res.data.success){
-              reject(res.data)
+            if (!res.data.success || res.data.msg){
+              reject(res.data.msg)
             } else {
               resolve(res.data)
             }

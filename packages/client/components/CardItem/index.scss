@@ -1,24 +1,38 @@
+@import '../../styles/varibles.scss';
+
 .card-item{
     background: #ffffff;
     padding:10px;
+    box-shadow: 0 6px 14px 0 rgba(26, 26, 26, 0.06);
+    margin-bottom: 20px;
     &-title{
         padding: 0 5px 10px 5px;
+        font-weight: bold;
+       
         .text{
             display: inline-block;
             margin-left: 5px
         }
+        border-bottom: 1px solid #eeeeee;
     }
     &-content{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 5px;
+        padding: 8px 5px;
         transition: .3s;
         border-radius: 5px;
         cursor: pointer;
+        &-name{
+            @include line(2);
+        }
+    }
+    &-active{
+        background:  $primary-color;
+        color: #ffffff;
     }
     &-content:hover{
-        background: red;
+        background:  $primary-color;
         color: #ffffff;
     }
 }

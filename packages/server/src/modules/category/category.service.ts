@@ -10,21 +10,24 @@ export class CategoryService{
       @InjectRepository(Category)
       private readonly categoryRepository: Repository<Category>,
       @InjectRepository(Article)
-      private readonly acticleRepository: Repository<Article>,
+      private readonly acticleRepository: Repository<Article & {count: number}>,
   ) {}
+
+  async create(body) {
+     await this.categoryRepository.save(body)
+     return body
+  }
 
   // 获取分类列表
   async findAll(): Promise<Category[]>{
-    const newCategory = await this.categoryRepository.find();
-    const totolCategory = await this.acticleRepository.createQueryBuilder('article').
-    select('category_id').addSelect('count(*)', 'count').groupBy('article.category_id').getRawMany();
-    return newCategory.map(category => {
-        const currentCategory = totolCategory.find(item => 
-            item.category_id === category.category_id);
-        const totol = currentCategory && currentCategory.count || 0
+    const categorys = await this.categoryRepository.
+    createQueryBuilder('category').
+    leftJoinAndSelect('category.articles', 'article').
+    getMany();
+    return categorys.map(category => {
         return {
             ...category,
-            totol: totol
+            total: category.articles.length,
         }
     })
   }

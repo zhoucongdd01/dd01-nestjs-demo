@@ -4,7 +4,9 @@ import { _Request } from '../../utils/request';
 
 
 const ArchivesPage = (props) => {
-    return <ComLayout />
+    return <div>
+        这是归档页
+    </div>
 }
 
 ArchivesPage.getInitialProps = async (ctx) => {

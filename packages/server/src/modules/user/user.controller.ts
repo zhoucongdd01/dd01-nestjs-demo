@@ -1,23 +1,43 @@
-import { Controller, Get, Post, HttpException, HttpStatus, Body, Request, Req, Query, Headers} from '@nestjs/common';
+import { Controller, Get, Post, HttpException, HttpStatus, Body,
+  UseInterceptors,
+  Query, Headers, UploadedFile} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UserService } from './user.service';
-import { UserEntity } from './user.entity'
+
+
+var fs = require('fs');
+var path = require('path');
 
 @Controller('user')
 export class UserController {
   testCode = null;
-  constructor(private readonly userService: UserService) { }
-  @Post('register')
-  async register(@Body() user: Partial<UserEntity & {code: string}>, @Headers() header) {
-    console.log(this.testCode.text, user.code)
-    if (user.code !== this.testCode.text) {
-      throw new HttpException('验证码不正确', HttpStatus.FORBIDDEN);
-    }
-    return await this.userService.createUser(user)
-  }
+  constructor(
+    private readonly userService: UserService
+  ) { }
 
-  @Post('SaveAvatar')
-  async SaveAvatar(@Body() body) {
-    return await this.userService.saveAvatar(body)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file')) // file对应HTML表单的name属性
+  async upload(@UploadedFile() file){
+    let {buffer,mimetype} = file;
+    let fileName = (new Date()).getTime() + Number(Math.random() * 1234);
+    let fileType = mimetype.split('/')[1];
+    let filePath = path.join(__dirname, '../../../uploads/images/');
+    let apath = `http://localhost:3302/uploads/images/${fileName}.${fileType}`;
+    const result = await new Promise((resolve, reject) => {
+      fs.writeFile( `${filePath}${fileName}.${fileType}`, buffer, (error) => {
+        if (error){
+         reject()
+        } else {
+          resolve(apath)
+        }
+      })
+    })
+    return {
+      success: true,
+      result: result,
+      status: HttpStatus.OK,
+      msg: null
+    }
   }
 
   @Get('list')
@@ -28,7 +48,7 @@ export class UserController {
   @Get('getTestCode')
   async getTestCode() {
     this.testCode = await this.userService.getTestCode();
-    return this.testCode.img;
+    return this.testCode.img
   }
 
 }

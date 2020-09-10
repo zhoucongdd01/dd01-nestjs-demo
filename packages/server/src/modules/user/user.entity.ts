@@ -1,17 +1,21 @@
 import { 
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     Column,
     OneToOne,
+    OneToMany,
+    ManyToMany,
 } from 'typeorm';
 
-import { AvatarEntity } from './avatar.entity'
+import { Comment } from '../comment/comment.entity';
 
 
 @Entity()
-export class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class User {
+    
+    // 主键id
+    @PrimaryColumn()
+    user_id: number
 
     @Column({ length: 500 })
     username: string;
@@ -19,6 +23,14 @@ export class UserEntity {
     @Column({ length: 500 })
     password: string;
 
-    // @Column()
-    // avatar: string
+    @Column()
+    email: string
+
+    @Column()
+    avatar: string
+    
+    @OneToMany(type => Comment, comment => comment.User, {
+        cascade: true
+    })
+    Comments: Comment[]
 }

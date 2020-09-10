@@ -5,6 +5,7 @@ export const config = {
         username: 'root',
         password: 'root',
         database: 'zcblog',
-        synchronize: true
+        synchronize: true,
+        cache: true
     }
 }

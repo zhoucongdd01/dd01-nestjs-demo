@@ -6,8 +6,6 @@ import {
     JoinColumn,
 } from 'typeorm';
 
-import {UserEntity} from './user.entity'
-
 @Entity()
 export class AvatarEntity {
     @PrimaryGeneratedColumn()
